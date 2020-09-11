@@ -48,16 +48,16 @@ parameters:
     required: true
 objects:
   - kind: DeploymentConfig
-  apiVersion: apps.openshift.io/v1
-  metadata:
-    annotations:
-      app.openshift.io/vcs-url: https://github.com/klenkes74/rfe-600-reproducer.git
-      app.quarkus.io/build-timestamp: 2020-09-10 - 18:05:19 +0000
-      app.quarkus.io/commit-id: 8402303184fb12884850d0de7a499998a14e5f1c
-      app.quarkus.io/vcs-url: https://github.com/klenkes74/rfe-600-reproducer.git
-      prometheus.io/path: /metrics
-      prometheus.io/port: "8080"
-      prometheus.io/scrape: "true"
+    apiVersion: apps.openshift.io/v1
+    metadata:
+      annotations:
+        app.openshift.io/vcs-url: https://github.com/klenkes74/rfe-600-reproducer.git
+        app.quarkus.io/build-timestamp: 2020-09-10 - 18:05:19 +0000
+        app.quarkus.io/commit-id: 8402303184fb12884850d0de7a499998a14e5f1c
+        app.quarkus.io/vcs-url: https://github.com/klenkes74/rfe-600-reproducer.git
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
     labels:
       app.kubernetes.io/name: rfe600-reproducer
       app.kubernetes.io/part-of: RFE-600
@@ -128,15 +128,15 @@ objects:
                   fieldRef:
                 apiVersion: v1
                 fieldPath: metadata.namespace
-          - name: pod.name
-            valueFrom:
-              fieldRef:
-                apiVersion: v1
-                fieldPath: metadata.name
-          - name: JAVA_APP_JAR
-            value: /deployments/rfe600-cookielogger-1.0.0-SNAPSHOT-runner.jar
-          - name: cookie.path
-            value: /
+              - name: pod.name
+                valueFrom:
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.name
+              - name: JAVA_APP_JAR
+                value: /deployments/rfe600-cookielogger-1.0.0-SNAPSHOT-runner.jar
+              - name: cookie.path
+                value: /
               - name: login.url
                 value: https://${LOGIN_DOMAIN}/login
               - name: cookie.name
@@ -147,28 +147,28 @@ objects:
                 value: ${HTTP_ONLY}
               - name: cookie.isSecure
                 value: ${IS_SECURE}
+              - name: resource.protocol
+                value: "https"
               - name: resource.port
                 value: ":443"
-              - name. resource.protocol
-                value: "https"
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /health/live
-              port: 8080
-              scheme: HTTP
-            periodSeconds: 15
-            successThreshold: 1
-            timeoutSeconds: 10
-            readinessProbe:
-              failureThreshold: 3
-              httpGet:
-                path: /health/ready
-                port: 8080
-                scheme: HTTP
-              periodSeconds: 15
-              successThreshold: 1
-              timeoutSeconds: 10
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/live
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 10
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/ready
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 10
   - apiVersion: v1
     kind: Service
     metadata:
