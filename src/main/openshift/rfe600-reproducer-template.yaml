@@ -84,6 +84,12 @@ objects:
         type: Rolling
       template:
         metadata:
+          labels:
+            delete: rfe-600-reproducer
+            app.kubernetes.io/name: rfe600-reproducer
+            app.kubernetes.io/part-of: RFE-600
+            app.kubernetes.io/version: 1.0.0-SNAPSHOT
+            app.openshift.io/runtime: quarkus
           annotations:
             app.openshift.io/vcs-url: https://github.com/klenkes74/rfe-600-reproducer.git
             app.quarkus.io/build-timestamp: 2020-09-10 - 18:05:19 +0000
@@ -176,6 +182,12 @@ objects:
         prometheus.io/path: /metrics
         prometheus.io/port: "8080"
         prometheus.io/scrape: "true"
+      labels:
+        delete: rfe-600-reproducer
+        app.kubernetes.io/name: rfe600-reproducer
+        app.kubernetes.io/part-of: RFE-600
+        app.kubernetes.io/version: 1.0.0-SNAPSHOT
+        app.openshift.io/runtime: quarkus
       name: rfe600-reproducer
     spec:
       ports:
