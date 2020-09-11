@@ -1,6 +1,10 @@
 ---
 login:
-  url: http://login-rlichti-eu.berlin.dbcs.db.de/login
+  url: https://login-rlichti-eu.berlin.dbcs.db.de/login
+
+resource:
+  protocol: "https"
+  port: ":443"
 
 cookie:
   name: javasession
@@ -23,7 +27,11 @@ quarkus:
     part-of: RFE-600
     env-vars:
       "login.url":
-        value: http://login-rlichti-eu.berlin.dbcs.db.de/login
+        value: https://login-rlichti-eu.berlin.dbcs.db.de/login
+      "resource.protocol":
+        value: "https"
+      "resource.port":
+        value: ":443"
       "cookie.name":
         value: javasession
       "cookie.path":
@@ -46,6 +54,7 @@ quarkus:
   login:
     url: http://localhost:8080/login
   resource:
+    protocol: "http"
     port: ":8080"
   cookie:
     domain: localhost
@@ -54,6 +63,7 @@ quarkus:
   login:
     url: http://localhost:8081/login
   resource:
+    protocol: "http"
     port: ":8080"
   cookie:
     domain: localhost

@@ -1,20 +1,15 @@
 package com.redhat.reproducer.rfe600;
 
-import io.vertx.core.http.Cookie;
-import io.vertx.core.http.HttpServerRequest;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.util.UUID;
+import java.util.Optional;
 
 @Path("/login")
 public class LoginPage {
@@ -24,7 +19,10 @@ public class LoginPage {
     String domain;
 
     @ConfigProperty(name = "resource.port", defaultValue = "")
-    String port;
+    Optional<String> port;
+
+    @ConfigProperty(name = "resource.protocol", defaultValue = "https")
+    Optional<String> protocol;
 
 
     @GET
@@ -170,8 +168,9 @@ public class LoginPage {
                         "        <div class=\"right-section\">\n" +
                         "            <h3>Next steps</h3>\n" +
                         "\n" +
-                        "            <form action=\"http://" + domain
-                        + (port != "" ? port : "")
+                        "            <form action=\""
+                        + (protocol.isPresent() ? protocol.get() : "") + "://" + domain
+                        + (port.isPresent() ? port.get() : "")
                         + "/hello\" method=\"post\">\n" +
                         "                <input name=\"data\" value=\"default value\" maxlength=\"50\" />\n" +
                         "                <button name=\"ok\" title=\"OK\" value=\"OK\" type=\"submit\" />\n" +
