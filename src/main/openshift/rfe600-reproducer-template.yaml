@@ -1,3 +1,4 @@
+---
 kind: Template
 apiVersion: template.openshift.io/v1
 labels:
@@ -29,19 +30,19 @@ parameters:
     description: The domain the resource page is located on. Will be prefixed with "https://" and postfixed with "/hello"
     value: resource-<project>.<app-cluster-domain>
     required: true
-  - name: cookie.path
+  - name: COOKIE_PATH
     description: The path of the cookie.
     value: /
     required: true
-  - name: cookie.name
+  - name: COOKIE_NAME
     description: The name of the cookie to set in the resource.
     value: session
     required: true
-  - name: cookie.httpOnly
+  - name: COOKIE_HTTPONLY
     description: The cookie parameter httpOnly.
     value: "true"
     required: true
-  - name: cookie.isSecure
+  - name: COOKIE_ISSECURE
     description: The cookie parameter isSecure.
     value: "true"
     required: true
@@ -153,7 +154,7 @@ objects:
           - name: login.url
             value: https://${LOGIN_DOMAIN}/login
           - name: cookie.name
-            value: ${SESSION_COOKIE}
+            value: ${COOKIE_NAME}
           - name: cookie.domain
             value: ${RESOURCE_DOMAIN}
           - name: cookie.httpOnly
@@ -224,7 +225,6 @@ objects:
       app.kubernetes.io/version: 1.0.0-SNAPSHOT
       app.openshift.io/runtime: quarkus
     name: reproducer
-    selfLink: /apis/route.openshift.io/v1/namespaces/rlichti-eu/routes/reproducer
   spec:
     host: ${RESOURCE_DOMAIN}
     port:
