@@ -103,7 +103,7 @@ objects:
           containers:
             - name: rfe600-reproducer
               image: quay.io/klenkes74/rfe600-reproducer:1.0.0-SNAPSHOT
-              imagePullPolicy: Allways
+              imagePullPolicy: Always
               ports:
                 - containerPort: 8080
                   name: http
@@ -128,8 +128,8 @@ objects:
                 - name: KUBERNETES_NAMESPACE
                   valueFrom:
                     fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
+                      apiVersion: v1
+                      fieldPath: metadata.namespace
                 - name: pod.name
                   valueFrom:
                     fieldRef:
@@ -212,15 +212,14 @@ objects:
       name: login
     spec:
       host: ${LOGIN_DOMAIN}
-      port:
       targetPort: http
-    tls:
-      insecureEdgeTerminationPolicy: Redirect
-      termination: edge
-    to:
-      kind: Service
-      name: rfe600-reproducer
-      weight: 100
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: rfe600-reproducer
+        weight: 100
   - kind: Route
     apiVersion: route.openshift.io/v1
     metadata:
@@ -232,12 +231,11 @@ objects:
       name: reproducer
     spec:
       host: ${RESOURCE_DOMAIN}
-      port:
       targetPort: http
-    tls:
-      insecureEdgeTerminationPolicy: Redirect
-      termination: edge
-    to:
-      kind: Service
-      name: rfe600-reproducer
-      weight: 100
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: rfe600-reproducer
+        weight: 100
